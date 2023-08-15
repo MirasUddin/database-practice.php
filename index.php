@@ -1,18 +1,18 @@
 <?php
 
 include("function.php");
-
 $objCrudAdmin = new CrudApp();
 
 if (isset($_POST['add_info'])) {
-    $return_sms = $objCrudAdmin->add_data($_POST);
+    $objCrudAdmin->add_data($_POST);
 }
+
+$students = $objCrudAdmin->display_data();
+
 
 
 
 ?>
-
-
 <!doctype html>
 <html lang="en">
 
@@ -28,9 +28,7 @@ if (isset($_POST['add_info'])) {
     <div class="container my-4 p-4 shadow rounded">
         <h2><a style="text-decoration: none; " href="index.php">Noted It Database</a> </h2>
 
-        <?php if (isset($return_sms)) {
-            echo $return_sms;
-        } ?>
+
 
         <form class="form" action="" method="POST" enctype="multipart/form-data">
             <input class="form-control mb-2" type="text" name="std_name" id="" placeholder="Enter Your Name">
@@ -54,16 +52,19 @@ if (isset($_POST['add_info'])) {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Miras</td>
-                    <td>2540</td>
-                    <td>image</td>
-                    <td>
-                        <a class="btn btn-success sm-mb-2" href="#">Edit</a>
-                        <a class="btn btn-danger" href="#">Delete</a>
-                    </td>
-                </tr>
+
+                <?php while ($student = mysqli_fetch_assoc($students)) { ?>
+                    <tr>
+                        <td><?php echo $student['id']; ?></td>
+                        <td><?php echo $student['std_name']; ?></td>
+                        <td><?php echo $student['std_roll']; ?></td>
+                        <td><img style="height: 50px;" src="upload/<?php echo $student['std_img']?>" alt=""></td>
+                        <td>
+                            <a class="btn btn-success sm-mb-2" href="#">Edit</a>
+                            <a class="btn btn-danger" href="#">Delete</a>
+                        </td>
+                    </tr>
+                <?php } ?>
             </tbody>
         </table>
     </div>
