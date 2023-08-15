@@ -1,3 +1,18 @@
+<?php
+
+include("function.php");
+
+$objCrudAdmin = new CrudApp();
+
+if (isset($_POST['add_info'])) {
+    $return_sms = $objCrudAdmin->add_data($_POST);
+}
+
+
+
+?>
+
+
 <!doctype html>
 <html lang="en">
 
@@ -12,6 +27,11 @@
 
     <div class="container my-4 p-4 shadow rounded">
         <h2><a style="text-decoration: none; " href="index.php">Noted It Database</a> </h2>
+
+        <?php if (isset($return_sms)) {
+            echo $return_sms;
+        } ?>
+
         <form class="form" action="" method="POST" enctype="multipart/form-data">
             <input class="form-control mb-2" type="text" name="std_name" id="" placeholder="Enter Your Name">
             <input class="form-control mb-2" type="number" name="std_roll" id="" placeholder="Enter Your Roll">
